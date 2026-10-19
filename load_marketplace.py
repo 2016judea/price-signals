@@ -10,7 +10,7 @@ Reads in place:
 """
 import json, os, re
 import pandas as pd
-from db import connect, replace_pull, insert, add_pull, counts
+from db import connect, replace_pull, insert, add_pull, counts, parse_fb_title
 
 PRESALE = os.path.expanduser("~/Desktop/presale-detail/data/listings.json")
 FB = os.path.expanduser("~/Desktop/on-the-house/drafts/fb-marketplace/listings_2026-10-10.json")
@@ -40,7 +40,7 @@ for r in json.load(open(PRESALE))["listings"]:
                     "make": make, "model": model, "mileage": num(a.get("odometer")), "engine_hours": num(a.get("engine hours (total)"))})
 
 for r in json.load(open(FB)).values():
-    m = re.match(r"\s*\$([\d,]+)", r.get("t") or "")
+    amount, title = parse_fb_title(r.get("t"))
     lines = [l.strip("﻿ ").strip() for l in (r.get("seller") or "").split("\n")]
     name = lines[1] if len(lines) > 1 and lines[0] == "Seller details" else None
     sid = f"fb:{r['prof']['h']}" if (r.get("prof") or {}).get("h") else "anon:person"
@@ -52,8 +52,8 @@ for r in json.load(open(FB)).values():
     desc = r.get("desc") or ""
     cond = re.search(r"Condition\n([^\n]+)", desc)
     price.append({"price_id": f"fbm:{r['id']}", "source": "facebook", "thing_id": tid,
-                  "title": (r.get("t") or "").split("|", 1)[-1].strip() if m else r.get("t"), "seller_id": sid, "basis": "ask",
-                  "amount": float(m.group(1).replace(",", "")) if m else None, "unit": "usd", "per": "each",
+                  "title": title, "seller_id": sid, "basis": "ask",
+                  "amount": amount, "unit": "usd", "per": "each",
                   "condition": cond.group(1).strip().lower() if cond else None, "observed_on": "2026-10-10", "state": "MN",
                   "url": f"https://www.facebook.com/marketplace/item/{r['id']}/"})
 

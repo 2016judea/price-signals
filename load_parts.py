@@ -9,7 +9,7 @@ Craigslist 'wan' (wanted) rows are demand, not supply: skipped (they belong in d
 """
 import glob, json, os
 import pandas as pd
-from db import connect, replace_pull, insert, add_pull, counts
+from db import connect, replace_pull, insert, add_pull, counts, price_or_none
 
 L = os.path.expanduser(os.environ.get("LEGACY_DIR", "~/Desktop/the-google-of-obsolete-infrastructure-parts"))
 PULL_ID = os.environ.get("PULL_ID", "legacy-supply-2026-10-01")
@@ -47,7 +47,7 @@ for path in sorted(glob.glob(os.path.join(L, "data/supply/*.jsonl"))):
         tid = url_item.get(r["url"]) or (f"cl:{cat}" if src == "craigslist" and cat else None)
         rows.append({"price_id": "sup:" + r["url"], "source": src, "thing_id": tid, "title": r.get("title"),
                      "seller_id": f"anon:{kind}", "basis": "bid" if src in AUCTION else "ask",
-                     "amount": r.get("price"), "unit": "usd", "per": "each",
+                     "amount": price_or_none(r.get("price")), "unit": "usd", "per": "each",
                      "observed_on": r.get("posted") or r.get("seen_at"), "city": city, "url": r["url"]})
 price = pd.DataFrame(rows).drop_duplicates("price_id")
 # One ad cross-posted to ~100 metros (same title, same price) is one price, not 100: keep the first.
@@ -56,7 +56,7 @@ key = price["title"].str.lower().str.strip() + "|" + price["amount"].astype(str)
 price = price[~(price["source"].eq("craigslist") & key.duplicated())]
 print(f"craigslist cross-posts dropped: {n0 - len(price):,}")
 price["observed_on"] = pd.to_datetime(price["observed_on"], errors="coerce").dt.date
-price["amount"] = pd.to_numeric(price["amount"], errors="coerce")
+price["amount"] = pd.to_numeric(price["amount"], errors="coerce")  # already floats or None; keeps the column numeric when every row is None
 price["pull_id"] = PULL_ID
 
 cats = sorted({t for t in price["thing_id"].dropna() if t.startswith("cl:")})
