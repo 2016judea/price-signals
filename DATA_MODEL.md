@@ -115,12 +115,12 @@ The uncoded goods are kept, labelled as uncoded, rather than dropped or forced i
 
 | Script | Source (read in place) | Pull id |
 |---|---|---|
-| `load_pt_rates.py` | `~/Desktop/pt-rates-data/data/rates*.duckdb` (ATTACH, SQL only), `~/Desktop/pt-rates/pipeline/cache/medicare_mn_pt_2024.json` | `pt-rates-2026-10-04`, `medicare-pt-2024` |
-| `load_salon.py` | `~/Desktop/salon-rates/pipeline/salon.db` (sqlite scanner) | `salon-2026-10-13` |
-| `load_houses.py` | `~/Desktop/msp-house-index/data` (listings_raw, sold_raw, index.csv, county.duckdb) | `msp-house-2026-10-12`, `mn-county-sales-2026-10-11` |
-| `load_parts.py` | `~/Desktop/the-google-of-obsolete-infrastructure-parts/data/supply`, `worth_items.json` | `legacy-supply-2026-10-01` |
-| `load_marketplace.py` | `~/Desktop/presale-detail/data/listings.json`, `~/Desktop/on-the-house/drafts/fb-marketplace/listings_2026-10-10.json` | `marketplace-2026-10-10` |
-| `load_bricks.py` | `~/Desktop/bricks/data` (Sedgwick sales, Johnson cap rates, arbitrage market_price) | `bricks-data-2026-10-17` |
+| `load_pt_rates.py` | `~/Desktop/workspace/pt-rates-data/data/rates*.duckdb` (ATTACH, SQL only), `~/Desktop/workspace/pt-rates/pipeline/cache/medicare_mn_pt_2024.json` | `pt-rates-2026-10-04`, `medicare-pt-2024` |
+| `load_salon.py` | `~/Desktop/workspace/salon-rates/pipeline/salon.db` (sqlite scanner) | `salon-2026-10-13` |
+| `load_houses.py` | `~/Desktop/workspace/msp-house-index/data` (listings_raw, sold_raw, index.csv, county.duckdb) | `msp-house-2026-10-12`, `mn-county-sales-2026-10-11` |
+| `load_parts.py` | `~/Desktop/workspace/the-google-of-obsolete-infrastructure-parts/data/supply`, `worth_items.json` | `legacy-supply-2026-10-01` |
+| `load_marketplace.py` | `~/Desktop/workspace/presale-detail/data/listings.json`, `~/Desktop/workspace/on-the-house/drafts/fb-marketplace/listings_2026-10-10.json` | `marketplace-2026-10-10` |
+| `load_bricks.py` | `~/Desktop/workspace/bricks/data` (Sedgwick sales, Johnson cap rates, arbitrage market_price) | `bricks-data-2026-10-17` |
 
 ## Rules that keep it honest
 - **An ask is not a sale.** Never median across bases. Twin Cities homes close at 0.994× the last ask (median), so a records gap is not a discount.

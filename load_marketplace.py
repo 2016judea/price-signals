@@ -1,9 +1,9 @@
 """Load private-party asks from two small marketplace sweeps.
 
 Reads in place:
-  ~/Desktop/presale-detail/data/listings.json   450 Minneapolis car + boat asks (Craigslist 300, Facebook 150), 2026-10-10
+  ~/Desktop/workspace/presale-detail/data/listings.json   450 Minneapolis car + boat asks (Craigslist 300, Facebook 150), 2026-10-10
                                                 -> basis=ask + vehicle detail; thing 'veh:<make model>' when stated
-  ~/Desktop/on-the-house/drafts/fb-marketplace/listings_2026-10-10.json
+  ~/Desktop/workspace/on-the-house/drafts/fb-marketplace/listings_2026-10-10.json
                                                 212 Facebook Marketplace asks (restaurant + demolition gear, Twin Cities)
                                                 -> basis=ask, thing 'fb:<segment>' (uncoded; see title), seller = profile name
 11 presale Craigslist URLs also appear in the Legacy supply sweep (load_parts.py); dedupe on url when counting.
@@ -12,8 +12,8 @@ import json, os, re
 import pandas as pd
 from db import connect, replace_pull, insert, add_pull, counts, parse_fb_title
 
-PRESALE = os.path.expanduser("~/Desktop/presale-detail/data/listings.json")
-FB = os.path.expanduser("~/Desktop/on-the-house/drafts/fb-marketplace/listings_2026-10-10.json")
+PRESALE = os.path.expanduser("~/Desktop/workspace/presale-detail/data/listings.json")
+FB = os.path.expanduser("~/Desktop/workspace/on-the-house/drafts/fb-marketplace/listings_2026-10-10.json")
 PULL_ID = os.environ.get("PULL_ID", "marketplace-2026-10-10")
 num = lambda s: float(re.sub(r"[^\d.]", "", s)) if s and re.search(r"\d", str(s)) else None
 norm = lambda s: re.sub(r"\s+", " ", s.strip().lower()) if s else None

@@ -1,5 +1,5 @@
 -- prices.duckdb: what things cost and what is offered for sale. See DATA_MODEL.md.
--- Mirror of ~/Desktop/demand-signals (demand.duckdb).
+-- Mirror of ~/Desktop/workspace/demand-signals (demand.duckdb).
 
 -- provenance
 CREATE TABLE IF NOT EXISTS pull (pull_id TEXT PRIMARY KEY, source TEXT, pulled_on DATE, note TEXT);

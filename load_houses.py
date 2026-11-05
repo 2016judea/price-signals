@@ -1,6 +1,6 @@
 """Load Twin Cities home prices: asks, MLS closes, county-recorded sales, and the index's own estimate.
 
-Reads ~/Desktop/msp-house-index/data in place:
+Reads ~/Desktop/workspace/msp-house-index/data in place:
   listings_raw.jsonl (Realtor.com for-sale, 2026-10-11)  -> basis=ask; thing = county PIN when index.csv matched it, else rdc:<property_id>
   sold_raw.jsonl     (Realtor.com closed, 12 months)      -> basis=sold; property.list_price = the row's list_price (see trap)
   index.csv          (the index's valuation per listing) -> basis=estimate (column `worth`)
@@ -10,7 +10,7 @@ Reads ~/Desktop/msp-house-index/data in place:
 import os
 from db import connect, replace_pull, add_pull, counts
 
-D = os.path.expanduser(os.environ.get("HOUSE_DIR", "~/Desktop/msp-house-index/data"))
+D = os.path.expanduser(os.environ.get("HOUSE_DIR", "~/Desktop/workspace/msp-house-index/data"))
 PULL_ID = os.environ.get("PULL_ID", "msp-house-2026-10-12")
 COUNTY_PULL = os.environ.get("COUNTY_PULL_ID", "mn-county-sales-2026-10-11")
 J = "maximum_object_size=20000000"

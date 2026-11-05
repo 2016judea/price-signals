@@ -1,6 +1,6 @@
 """Load equipment, parts and used goods for sale, plus what agencies paid for parts.
 
-Reads ~/Desktop/the-google-of-obsolete-infrastructure-parts in place (Legacy Requests):
+Reads ~/Desktop/workspace/the-google-of-obsolete-infrastructure-parts in place (Legacy Requests):
   data/supply/*.jsonl   197,600 listings: Craigslist for-sale (all categories, ~50 metros), GovDeals + PublicSurplus
                         auctions, Eltra + Bid-on-Equipment dealers -> price basis=ask (dealer/owner) or bid (auction)
   data/worth_items.json 28,141 items grouping listings by maker + part number -> thing 'part:<id>';
@@ -11,7 +11,7 @@ import glob, json, os
 import pandas as pd
 from db import connect, replace_pull, insert, add_pull, counts, price_or_none
 
-L = os.path.expanduser(os.environ.get("LEGACY_DIR", "~/Desktop/the-google-of-obsolete-infrastructure-parts"))
+L = os.path.expanduser(os.environ.get("LEGACY_DIR", "~/Desktop/workspace/the-google-of-obsolete-infrastructure-parts"))
 PULL_ID = os.environ.get("PULL_ID", "legacy-supply-2026-10-01")
 AUCTION = {"govdeals", "publicsurplus"}
 DEALER = {"eltra", "bidonequipment"}

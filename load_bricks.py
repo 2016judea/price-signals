@@ -1,6 +1,6 @@
 """Load the priced files in bricks/data that are not already a bricks platform slice.
 
-Reads ~/Desktop/bricks/data in place:
+Reads ~/Desktop/workspace/bricks/data in place:
   wichita_sales_benchmark_2026.json        742 validated commercial sales, Sedgwick County KS (KORA) -> basis=sold + property
   johnson_county_cap_rates_2012_2022.json  3,555 assessor cap rates by property class x eclass x year, Johnson County KS
                                            -> basis=benchmark, unit=cap_rate_pct (the price of income, not dollars)
@@ -13,7 +13,7 @@ import json, os
 import pandas as pd
 from db import connect, replace_pull, insert, add_pull, counts
 
-B = os.path.expanduser(os.environ.get("BRICKS_DATA", "~/Desktop/bricks/data"))
+B = os.path.expanduser(os.environ.get("BRICKS_DATA", "~/Desktop/workspace/bricks/data"))
 PULL_ID = os.environ.get("PULL_ID", "bricks-data-2026-10-17")
 
 w = json.load(open(os.path.join(B, "wichita_sales_benchmark_2026.json")))

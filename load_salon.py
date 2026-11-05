@@ -1,6 +1,6 @@
 """Load salon menus: every listed service price, plus the repo's own benchmarks.
 
-Reads ~/Desktop/salon-rates/pipeline/salon.db (sqlite) in place via DuckDB's sqlite scanner.
+Reads ~/Desktop/workspace/salon-rates/pipeline/salon.db (sqlite) in place via DuckDB's sqlite scanner.
   service_listing (12,883)  -> price basis=list, one per listing; service detail (price_type, duration, tier)
   listing_map + canonical_service -> thing 'salon:<code>[:<size_mod>]' where the repo mapped it; else thing_id NULL
   benchmark (468)           -> price basis=benchmark + stat (n shops, p25/p75, geography)
@@ -9,7 +9,7 @@ Reads ~/Desktop/salon-rates/pipeline/salon.db (sqlite) in place via DuckDB's sql
 import os
 from db import connect, replace_pull, add_pull, counts
 
-SALON = os.path.expanduser(os.environ.get("SALON_DB", "~/Desktop/salon-rates/pipeline/salon.db"))
+SALON = os.path.expanduser(os.environ.get("SALON_DB", "~/Desktop/workspace/salon-rates/pipeline/salon.db"))
 PULL_ID = os.environ.get("PULL_ID", "salon-2026-10-13")
 
 con = connect()

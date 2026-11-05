@@ -1,9 +1,9 @@
 """Load physical-therapy prices: payer negotiated rates (TiC) and Medicare allowed/charged amounts.
 
 Reads in place, writes nothing there:
-  ~/Desktop/pt-rates-data/data/rates.duckdb       HealthPartners + UCare rates, nppes_providers (names for every NPI)
-  ~/Desktop/pt-rates-data/data/rates_bcbs.duckdb  BCBS MN rates
-  ~/Desktop/pt-rates/pipeline/cache/medicare_mn_pt_2024.json  CMS Physician & Other Practitioners, MN PTs, 2024
+  ~/Desktop/workspace/pt-rates-data/data/rates.duckdb       HealthPartners + UCare rates, nppes_providers (names for every NPI)
+  ~/Desktop/workspace/pt-rates-data/data/rates_bcbs.duckdb  BCBS MN rates
+  ~/Desktop/workspace/pt-rates/pipeline/cache/medicare_mn_pt_2024.json  CMS Physician & Other Practitioners, MN PTs, 2024
 
 The source tables repeat one rate once per plan file (HealthPartners: 4.30M rows, 2.98M distinct
 per network). A price row here is one distinct (payer, network, modifiers, code, negotiated_type,
@@ -14,8 +14,8 @@ import os
 import pandas as pd
 from db import connect, replace_pull, insert, add_pull, counts
 
-PT = os.path.expanduser(os.environ.get("PT_RATES_DIR", "~/Desktop/pt-rates-data"))
-MEDICARE = os.path.expanduser("~/Desktop/pt-rates/pipeline/cache/medicare_mn_pt_2024.json")
+PT = os.path.expanduser(os.environ.get("PT_RATES_DIR", "~/Desktop/workspace/pt-rates-data"))
+MEDICARE = os.path.expanduser("~/Desktop/workspace/pt-rates/pipeline/cache/medicare_mn_pt_2024.json")
 PULL_ID = os.environ.get("PULL_ID", "pt-rates-2026-10-04")
 MC_PULL = os.environ.get("MC_PULL_ID", "medicare-pt-2024")
 
